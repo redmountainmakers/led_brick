@@ -9,7 +9,6 @@ void fb_init(fb_t *fb_out, color_t *buf, int w, int h, int pitch)
 	fb_out->height = h;
 	fb_out->pitch = pitch;
 	fb_out->buf = buf;
-	fb_out->end = &fb_out->buf[h*pitch + w*FB_EPP];
 }
 
 /* initialize a framebuffer that is a subset of an existing framebuffer */
@@ -22,7 +21,6 @@ void fb_sub(fb_t *fb_out, fb_t *fb_in, int x0, int y0, int w, int h)
 	fb_out->height = h;
 	fb_out->pitch = fb_in->pitch;
 	fb_out->buf = &fb_in->buf[y0*fb_in->pitch + x0*FB_EPP];
-	fb_out->end = &fb_out->buf[h*fb_out->pitch + w*FB_EPP];
 }
 
 void fb_fill(fb_t *fb_out, const color_t *color)

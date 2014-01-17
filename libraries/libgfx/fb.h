@@ -12,7 +12,7 @@ typedef struct fb_s fb_t;
 struct fb_s {
 	int width, height;
 	int pitch; /* in elements, not pixels */
-	color_t *buf, *end;
+	color_t *buf;
 };
 
 #define COLOR(r,g,b) \

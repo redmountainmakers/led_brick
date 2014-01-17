@@ -9,7 +9,6 @@ fb_t fb = {
 	.height = ROWS,
 	.pitch = COLS,
 	.buf = fb_buf,
-	.end = &fb_buf[COLS*ROWS],
 };
 
 void setup()
