@@ -41,8 +41,6 @@ static inline void fb_pixel_set(fb_t *fb, int x, int y, const color_t *src)
 	memcpy(fb_pixel(fb, x, y), src, sizeof(color_t)*FB_EPP);
 }
 
-void fb_color_hsv(color_t *dst, int h, int s, int v);
-
 /* staticly allocate and initialize a framebuffer */
 #define FB_DEF(name,w,h) \
 	color_array_t name ## _buf[(w)*(h)]; \
@@ -63,6 +61,8 @@ void fb_init(fb_t *fb_out, color_t *buf, int w, int h, int pitch);
 void fb_sub(fb_t *fb_out, fb_t *fb_in, int x0, int y0, int w, int h);
 
 void fb_fill(fb_t *fb_out, const color_t *color);
+
+void fb_color_hsv(color_t *dst, int h, int s, int v);
 
 #ifdef __cplusplus
 };
