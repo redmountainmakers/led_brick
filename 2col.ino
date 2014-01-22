@@ -19,14 +19,24 @@ void setup()
 void loop()
 {
 	static int offset = 0;
+	static int hue = 0;
+	static color_t c;
 
+	fb_color_hsv(&c, hue, 255, 64);
+
+#if 1
 	fb_fill(&fb, COLOR(0,0,0));
-	font_draw(&fb, offset, 0, COLOR(16,64,64), "Hello, world");
-	font_draw(&fb, offset + 37, 0, COLOR(16,64,64), "Hello, world");
-	if (--offset < 37)
+	font_draw(&fb, offset, 0, &c, "Hello, world");
+	font_draw(&fb, offset + 38, 0, &c, "Hello, world");
+	if (--offset < -38)
 		offset = 0;
+#else
+	fb_fill(&fb, &c);
+#endif
+
+	hue = (hue + 1) % 360;
 
 	ws28_send(&fb);
 
-	delay(1000 / 10);
+	delay(100);
 }
