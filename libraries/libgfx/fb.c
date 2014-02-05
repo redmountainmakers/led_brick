@@ -32,9 +32,9 @@ void fb_fill(fb_t *fb_out, const color_t *color)
 	}
 }
 
-void fb_color_hsv(color_t *dst, int h, int s, int v)
+void fb_color_hsv(color_t *dst, unsigned int h, unsigned int s, unsigned int v)
 {
-	int c, x, hm;
+	unsigned int c, x, hm;
 	uint8_t r, g, b;
 
 	c = s*v/255;
@@ -42,7 +42,7 @@ void fb_color_hsv(color_t *dst, int h, int s, int v)
 	if (hm >= 60) hm = 120 - hm;
 
 	h /= 60;
-	x = hm*c/59;
+	x = hm*c/60;
 
 	switch (h) {
 	case 0: r = c; g = x; b = 0; break;
@@ -54,5 +54,9 @@ void fb_color_hsv(color_t *dst, int h, int s, int v)
 	default: r = 0; g = 0; b = 0; break;
 	}
 
+	hm = v - c;
+	r += hm;
+	g += hm;
+	b += hm;
 	fb_color_set(dst, COLOR(r,g,b));
 }

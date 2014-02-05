@@ -62,7 +62,7 @@ void fb_sub(fb_t *fb_out, fb_t *fb_in, int x0, int y0, int w, int h);
 
 void fb_fill(fb_t *fb_out, const color_t *color);
 
-void fb_color_hsv(color_t *dst, int h, int s, int v);
+void fb_color_hsv(color_t *dst, unsigned int h, unsigned int s, unsigned int v);
 
 #ifdef __cplusplus
 };
