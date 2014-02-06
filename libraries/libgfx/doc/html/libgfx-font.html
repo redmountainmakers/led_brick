@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>font</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="libgfx Reference Manual">
+<link rel="up" href="ch01.html" title="libgfx">
+<link rel="prev" href="libgfx-fb.html" title="fb">
+<link rel="next" href="libgfx-ws28.html" title="ws28">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libgfx-fb.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libgfx Reference Manual</th>
+<td><a accesskey="n" href="libgfx-ws28.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libgfx-font.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libgfx-font.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="libgfx-font"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libgfx-font.top_of_page"></a>font</span></h2>
+<p>font — Basic font drawing support.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="libgfx-font.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis"><span class="returnvalue">int</span>                 <a class="link" href="libgfx-font.html#font-draw-ch" title="font_draw_ch ()">font_draw_ch</a>                        (<em class="parameter"><code><a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> sx</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> sy</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> *color</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ch</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libgfx-font.html#font-draw" title="font_draw ()">font_draw</a>                           (<em class="parameter"><code><a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> sx</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> sy</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> *color</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="libgfx-font.description"></a><h2>Description</h2>
+<p>
+Contains functions for drawing characters and strings to a <a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a>.
+</p>
+<p>
+</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>These function draw <span class="emphasis"><em>inside</em></span> the framebuffer only.
+They will skip drawing locations outside the framebuffer,
+so you can use them to scroll text off-screen.</div>
+<p>
+</p>
+<p>
+</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>The background is not drawn by these functions.</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="libgfx-font.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="font-draw-ch"></a><h3>font_draw_ch ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 font_draw_ch                        (<em class="parameter"><code><a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> sx</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> sy</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> *color</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ch</code></em>);</pre>
+<p>
+Draw a single character in a framebuffer.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fb</code></em> :</span></p></td>
+<td>The framebuffer to draw in. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sx</code></em> :</span></p></td>
+<td>Left starting location of the character. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sy</code></em> :</span></p></td>
+<td>Top starting location of the character. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td>Color to draw with. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ch</code></em> :</span></p></td>
+<td>Character to draw in <em class="parameter"><code>fb</code></em> at <em class="parameter"><code>sx</code></em>,<em class="parameter"><code>sy</code></em> with color <em class="parameter"><code>color</code></em>. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>Number of columns the character takes, including a spacer column.
+See also: <a class="link" href="libgfx-font.html#font-draw" title="font_draw ()"><code class="function">font_draw()</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="font-draw"></a><h3>font_draw ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 font_draw                           (<em class="parameter"><code><a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> sx</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> sy</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> *color</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>);</pre>
+<p>
+Draw a string in a framebuffer.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fb</code></em> :</span></p></td>
+<td>The framebuffer. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sx</code></em> :</span></p></td>
+<td>Left starting location of the character. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sy</code></em> :</span></p></td>
+<td>Top starting location of the character. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td>Color to draw with. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>String to draw in <em class="parameter"><code>fb</code></em> at <em class="parameter"><code>sx</code></em>,<em class="parameter"><code>sy</code></em> with color <em class="parameter"><code>color</code></em>. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> null-terminated=1]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>Number of columns the string takes, including a spacer column.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

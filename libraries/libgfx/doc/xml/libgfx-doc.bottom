@@ -1,0 +1,3 @@
+    <xi:include href="xml/fb.xml"/>
+    <xi:include href="xml/font.xml"/>
+    <xi:include href="xml/ws28.xml"/>

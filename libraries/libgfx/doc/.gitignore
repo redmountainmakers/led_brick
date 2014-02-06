@@ -1,0 +1,5 @@
+*.stamp
+*-*.txt
+libgfx.*
+!libgfx.xml
+!libgfx-overrides.txt

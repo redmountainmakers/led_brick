@@ -1,0 +1,309 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="libgfx-fb">
+<refmeta>
+<refentrytitle role="top_of_page" id="libgfx-fb.top_of_page">fb</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBGFX Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>fb</refname>
+<refpurpose>Basic framebuffer/color support</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libgfx-fb.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>typedef             <link linkend="color-t">color_t</link>;
+#define             <link linkend="FB-EPP:CAPS">FB_EPP</link>
+                    <link linkend="fb-t">fb_t</link>;
+#define             <link linkend="COLOR:CAPS">COLOR</link>                               (r,
+                                                         g,
+                                                         b)
+#define             <link linkend="FB-DEF:CAPS">FB_DEF</link>                              (name,
+                                                         w,
+                                                         h)
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="fb-init">fb_init</link>                             (<parameter><link linkend="fb-t"><type>fb_t</type></link> *fb_out</parameter>,
+                                                         <parameter><link linkend="color-t"><type>color_t</type></link> *buf</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> w</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> h</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> pitch</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="fb-sub">fb_sub</link>                              (<parameter><link linkend="fb-t"><type>fb_t</type></link> *fb_out</parameter>,
+                                                         <parameter><link linkend="fb-t"><type>fb_t</type></link> *fb_in</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> x0</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> y0</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> w</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> h</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="fb-offset">fb_offset</link>                           (<parameter>const <link linkend="fb-t"><type>fb_t</type></link> *fb</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> x</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> y</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="fb-color-set">fb_color_set</link>                        (<parameter><link linkend="color-t"><type>color_t</type></link> *dst</parameter>,
+                                                         <parameter>const <link linkend="color-t"><type>color_t</type></link> *src</parameter>);
+<link linkend="color-t"><returnvalue>color_t</returnvalue></link> *           <link linkend="fb-pixel">fb_pixel</link>                            (<parameter><link linkend="fb-t"><type>fb_t</type></link> *fb</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> x</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> y</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="fb-pixel-set">fb_pixel_set</link>                        (<parameter><link linkend="fb-t"><type>fb_t</type></link> *fb</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> x</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> y</parameter>,
+                                                         <parameter>const <link linkend="color-t"><type>color_t</type></link> *src</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="fb-fill">fb_fill</link>                             (<parameter><link linkend="fb-t"><type>fb_t</type></link> *fb_out</parameter>,
+                                                         <parameter>const <link linkend="color-t"><type>color_t</type></link> *color</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="fb-color-hsv">fb_color_hsv</link>                        (<parameter><link linkend="color-t"><type>color_t</type></link> *dst</parameter>,
+                                                         <parameter>unsigned <link linkend="int"><type>int</type></link> h</parameter>,
+                                                         <parameter>unsigned <link linkend="int"><type>int</type></link> s</parameter>,
+                                                         <parameter>unsigned <link linkend="int"><type>int</type></link> v</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="libgfx-fb.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+Contains low-level functions for framebuffer and color/pixel support.
+<warning>None of these functions do bounds checking - that is the
+responsibility of higher level code.</warning>
+</para>
+</refsect1>
+<refsect1 id="libgfx-fb.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="color-t" role="typedef">
+<title>color_t</title>
+<indexterm zone="color-t"><primary>color_t</primary></indexterm>
+<programlisting>typedef uint16_t color_t;
+</programlisting>
+<para>
+Type representing a color or single pixel.
+</para></refsect2>
+<refsect2 id="FB-EPP:CAPS" role="macro">
+<title>FB_EPP</title>
+<indexterm zone="FB-EPP:CAPS"><primary>FB_EPP</primary></indexterm>
+<programlisting>#define FB_EPP		1
+</programlisting>
+<para>
+Number of elements per pixel in <link linkend="fb-t.buf"><type>fb_t.buf</type></link>.
+</para></refsect2>
+<refsect2 id="fb-t" role="struct">
+<title>fb_t</title>
+<indexterm zone="fb-t"><primary>fb_t</primary></indexterm>
+<programlisting>typedef struct {
+	int width, height;
+	int pitch;
+	color_t *buf;
+} fb_t;
+</programlisting>
+<para>
+A basic framebuffer object with <parameter>width</parameter> columns and <parameter>height</parameter> rows of pixels.
+</para><variablelist role="struct">
+<varlistentry><term><link linkend="int"><type>int</type></link>&#160;<structfield id="fb-t.width">width</structfield>;</term>
+<listitem><simpara>Width of the framebuffer.</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="int"><type>int</type></link>&#160;<structfield id="fb-t.height">height</structfield>;</term>
+<listitem><simpara>Height of the framebuffer.</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="int"><type>int</type></link>&#160;<structfield id="fb-t.pitch">pitch</structfield>;</term>
+<listitem><simpara>Pitch of the framebuffer (<emphasis>elements</emphasis> to next row).</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="color-t"><type>color_t</type></link>&#160;*<structfield id="fb-t.buf">buf</structfield>;</term>
+<listitem><simpara>Framebuffer pixels; Must have at least <code><link linkend="fb-t.height"><type>fb_t.height</type></link> * <link linkend="fb-t.pitch"><type>fb_t.pitch</type></link></code> elements. <emphasis role="annotation">[<acronym>array</acronym>]</emphasis></simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="COLOR:CAPS" role="macro">
+<title>COLOR()</title>
+<indexterm zone="COLOR:CAPS"><primary>COLOR</primary></indexterm>
+<programlisting>#define             COLOR(r,g,b)</programlisting>
+<para>
+Converts R,G,B values in to a <link linkend="color-t"><type>color_t</type></link>
+</para><variablelist role="params">
+<varlistentry><term><parameter>r</parameter>&#160;:</term>
+<listitem><simpara>Red value (0 to 255). <emphasis role="annotation">[<acronym>in</acronym>][<acronym>type</acronym> uint8_t]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>g</parameter>&#160;:</term>
+<listitem><simpara>Red value (0 to 255). <emphasis role="annotation">[<acronym>in</acronym>][<acronym>type</acronym> uint8_t]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara>Red value (0 to 255). <emphasis role="annotation">[<acronym>in</acronym>][<acronym>type</acronym> uint8_t]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><code>const</code> pointer to the <link linkend="color-t"><type>color_t</type></link></simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="FB-DEF:CAPS" role="macro">
+<title>FB_DEF()</title>
+<indexterm zone="FB-DEF:CAPS"><primary>FB_DEF</primary></indexterm>
+<programlisting>#define             FB_DEF(name,w,h)</programlisting>
+<para>
+Staticly allocate and initialize a <link linkend="fb-t"><type>fb_t</type></link> and its buffer.
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&#160;:</term>
+<listitem><simpara>Name of the <link linkend="fb-t"><type>fb_t</type></link> variable to declare and define. <emphasis role="annotation">[<acronym>type</acronym> fb_t]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>w</parameter>&#160;:</term>
+<listitem><simpara>Width of the framebuffer to allocate. <emphasis role="annotation">[<acronym>type</acronym> int][<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>h</parameter>&#160;:</term>
+<listitem><simpara>Height of the framebuffer to allocate. <emphasis role="annotation">[<acronym>type</acronym> int][<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="fb-init" role="function">
+<title>fb_init ()</title>
+<indexterm zone="fb-init"><primary>fb_init</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                fb_init                             (<parameter><link linkend="fb-t"><type>fb_t</type></link> *fb_out</parameter>,
+                                                         <parameter><link linkend="color-t"><type>color_t</type></link> *buf</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> w</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> h</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> pitch</parameter>);</programlisting>
+<para>
+Initialize a <link linkend="fb-t"><type>fb_t</type></link> with pre-allocated buffer.
+</para>
+<para>
+See also: <link linkend="FB-DEF:CAPS"><function>FB_DEF()</function></link>, <link linkend="fb-sub"><function>fb_sub()</function></link>, <link linkend="fb-pixel-set"><function>fb_pixel_set()</function></link>, <link linkend="fb-pixel"><function>fb_pixel()</function></link>
+</para><variablelist role="params">
+<varlistentry><term><parameter>fb_out</parameter>&#160;:</term>
+<listitem><simpara>The framebuffer to initialize. <emphasis role="annotation">[<acronym>out</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>buf</parameter>&#160;:</term>
+<listitem><simpara>The allocated memory.  Must be at least <code><parameter>h</parameter> * <parameter>pitch</parameter></code> elements. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>w</parameter>&#160;:</term>
+<listitem><simpara>Width of the framebuffer. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>h</parameter>&#160;:</term>
+<listitem><simpara>Height of the framebuffer. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pitch</parameter>&#160;:</term>
+<listitem><simpara>Number of <emphasis>elements</emphasis> to get from one row to the next. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="fb-sub" role="function">
+<title>fb_sub ()</title>
+<indexterm zone="fb-sub"><primary>fb_sub</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                fb_sub                              (<parameter><link linkend="fb-t"><type>fb_t</type></link> *fb_out</parameter>,
+                                                         <parameter><link linkend="fb-t"><type>fb_t</type></link> *fb_in</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> x0</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> y0</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> w</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> h</parameter>);</programlisting>
+<para>
+Initialize a <link linkend="fb-t"><type>fb_t</type></link> as rectangular subset of an existing <link linkend="fb-t"><type>fb_t</type></link>.
+</para>
+<para>
+<note>The data is not copied; changes to <parameter>fb_in</parameter> will appear in <parameter>fb_out</parameter> and vice versa.</note>
+</para><variablelist role="params">
+<varlistentry><term><parameter>fb_out</parameter>&#160;:</term>
+<listitem><simpara>The framebuffer to initialize. <emphasis role="annotation">[<acronym>out</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fb_in</parameter>&#160;:</term>
+<listitem><simpara>The already-initialized framebuffer. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x0</parameter>&#160;:</term>
+<listitem><simpara>Left location of the rectangle. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y0</parameter>&#160;:</term>
+<listitem><simpara>Top location of the rectangle. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>w</parameter>&#160;:</term>
+<listitem><simpara>Width of the rectangle. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>h</parameter>&#160;:</term>
+<listitem><simpara>Height of the rectangle. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="fb-offset" role="function">
+<title>fb_offset ()</title>
+<indexterm zone="fb-offset"><primary>fb_offset</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 fb_offset                           (<parameter>const <link linkend="fb-t"><type>fb_t</type></link> *fb</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> x</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> y</parameter>);</programlisting>
+<para>
+Calculates the element index of a location in a <link linkend="fb-t"><type>fb_t</type></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>fb</parameter>&#160;:</term>
+<listitem><simpara>The <link linkend="fb-t"><type>fb_t</type></link>. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara>X location in <parameter>fb</parameter>. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara>Y location in <parameter>fb</parameter>. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>The index, such that <code><parameter>fb->buf</parameter>[index]</code> is the pixel at <parameter>x</parameter>,<parameter>y</parameter>
+See also: <link linkend="fb-pixel"><function>fb_pixel()</function></link>, <link linkend="fb-color-set"><function>fb_color_set()</function></link></simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="fb-color-set" role="function">
+<title>fb_color_set ()</title>
+<indexterm zone="fb-color-set"><primary>fb_color_set</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                fb_color_set                        (<parameter><link linkend="color-t"><type>color_t</type></link> *dst</parameter>,
+                                                         <parameter>const <link linkend="color-t"><type>color_t</type></link> *src</parameter>);</programlisting>
+<para>
+Set <link linkend="color-t"><type>color_t</type></link> <parameter>dst</parameter> to the color in <parameter>src</parameter>.
+</para>
+<para>
+See also: <link linkend="fb-pixel-set"><function>fb_pixel_set()</function></link>, <link linkend="fb-pixel"><function>fb_pixel()</function></link>
+</para><variablelist role="params">
+<varlistentry><term><parameter>dst</parameter>&#160;:</term>
+<listitem><simpara>Destination <link linkend="color-t"><type>color_t</type></link>. <emphasis role="annotation">[<acronym>out</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>src</parameter>&#160;:</term>
+<listitem><simpara>Source <link linkend="color-t"><type>color_t</type></link>. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="fb-pixel" role="function">
+<title>fb_pixel ()</title>
+<indexterm zone="fb-pixel"><primary>fb_pixel</primary></indexterm>
+<programlisting><link linkend="color-t"><returnvalue>color_t</returnvalue></link> *           fb_pixel                            (<parameter><link linkend="fb-t"><type>fb_t</type></link> *fb</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> x</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> y</parameter>);</programlisting>
+<para>
+Calcluate pointer to a pixel in a <link linkend="fb-t"><type>fb_t</type></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>fb</parameter>&#160;:</term>
+<listitem><simpara>Framebuffer containing the pixel. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara>X location in <parameter>fb</parameter>. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara>Y location in <parameter>fb</parameter>. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>A pointer to the requested pixel in <parameter>fb</parameter>.
+See also: <link linkend="fb-color-set"><function>fb_color_set()</function></link>, <link linkend="fb-pixel-set"><function>fb_pixel_set()</function></link>, <link linkend="fb-offset"><function>fb_offset()</function></link></simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="fb-pixel-set" role="function">
+<title>fb_pixel_set ()</title>
+<indexterm zone="fb-pixel-set"><primary>fb_pixel_set</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                fb_pixel_set                        (<parameter><link linkend="fb-t"><type>fb_t</type></link> *fb</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> x</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> y</parameter>,
+                                                         <parameter>const <link linkend="color-t"><type>color_t</type></link> *src</parameter>);</programlisting>
+<para>
+Set a pixel in a <link linkend="fb-t"><type>fb_t</type></link> to a <link linkend="color-t"><type>color_t</type></link>.
+</para>
+<para>
+See also: <link linkend="COLOR:CAPS"><function>COLOR()</function></link>, <link linkend="fb-color-hsv"><function>fb_color_hsv()</function></link>, <link linkend="fb-pixel"><function>fb_pixel()</function></link>
+</para><variablelist role="params">
+<varlistentry><term><parameter>fb</parameter>&#160;:</term>
+<listitem><simpara>Framebuffer to set the pixel in. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&#160;:</term>
+<listitem><simpara>X location in <parameter>fb</parameter>. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&#160;:</term>
+<listitem><simpara>Y location in <parameter>fb</parameter>. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>src</parameter>&#160;:</term>
+<listitem><simpara><link linkend="color-t"><type>color_t</type></link> to set the pixel at <parameter>x</parameter>,<parameter>y</parameter> in <parameter>fb</parameter> to. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="fb-fill" role="function">
+<title>fb_fill ()</title>
+<indexterm zone="fb-fill"><primary>fb_fill</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                fb_fill                             (<parameter><link linkend="fb-t"><type>fb_t</type></link> *fb_out</parameter>,
+                                                         <parameter>const <link linkend="color-t"><type>color_t</type></link> *color</parameter>);</programlisting>
+<para>
+Fill an entire <link linkend="fb-t"><type>fb_t</type></link> with one color.
+</para><variablelist role="params">
+<varlistentry><term><parameter>fb_out</parameter>&#160;:</term>
+<listitem><simpara>The <link linkend="fb-t"><type>fb_t</type></link> to fill. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara>The <link linkend="color-t"><type>color_t</type></link> to fill <parameter>fb_out</parameter> with. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="fb-color-hsv" role="function">
+<title>fb_color_hsv ()</title>
+<indexterm zone="fb-color-hsv"><primary>fb_color_hsv</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                fb_color_hsv                        (<parameter><link linkend="color-t"><type>color_t</type></link> *dst</parameter>,
+                                                         <parameter>unsigned <link linkend="int"><type>int</type></link> h</parameter>,
+                                                         <parameter>unsigned <link linkend="int"><type>int</type></link> s</parameter>,
+                                                         <parameter>unsigned <link linkend="int"><type>int</type></link> v</parameter>);</programlisting>
+<para>
+Create a <link linkend="color-t"><type>color_t</type></link> based on Hue, Saturation, and Value.
+</para>
+<para>
+See also: <link linkend="COLOR:CAPS"><function>COLOR()</function></link>, <link linkend="fb-pixel-set"><function>fb_pixel_set()</function></link>, <link linkend="fb-color-set"><function>fb_color_set()</function></link>
+</para><variablelist role="params">
+<varlistentry><term><parameter>dst</parameter>&#160;:</term>
+<listitem><simpara><link linkend="color-t"><type>color_t</type></link> to store the result in. <emphasis role="annotation">[<acronym>out</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>h</parameter>&#160;:</term>
+<listitem><simpara>Hue of <parameter>dst</parameter> in degrees (0 to 359). <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>s</parameter>&#160;:</term>
+<listitem><simpara>Saturation of <parameter>dst</parameter> (0 to 255). <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>v</parameter>&#160;:</term>
+<listitem><simpara>Value of <parameter>dst</parameter> (0 to 255). <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

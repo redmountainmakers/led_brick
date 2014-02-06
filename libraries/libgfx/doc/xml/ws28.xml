@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="libgfx-ws28">
+<refmeta>
+<refentrytitle role="top_of_page" id="libgfx-ws28.top_of_page">ws28</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBGFX Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>ws28</refname>
+<refpurpose>Communicate with WS2803/WS2812</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libgfx-ws28.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis><link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="ws28-init">ws28_init</link>                           (<parameter><type>void</type></parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="ws28-send-color">ws28_send_color</link>                     (<parameter>const <link linkend="color-t"><type>color_t</type></link> *src</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="ws28-send">ws28_send</link>                           (<parameter><link linkend="fb-t"><type>fb_t</type></link> *fb</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="libgfx-ws28.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+Arduino-compatible functions for sending <link linkend="color-t"><type>color_t</type></link> and <link linkend="fb-t"><type>fb_t</type></link> to a
+WS2803 or WS2812 LED controller chip.
+<warning>WS2811 chips (and perhaps others) use a different signaling protocol.
+This library will not work with those.</warning>
+</para>
+</refsect1>
+<refsect1 id="libgfx-ws28.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ws28-init" role="function">
+<title>ws28_init ()</title>
+<indexterm zone="ws28-init"><primary>ws28_init</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                ws28_init                           (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Initialize the SPI interface for use with a WS2803 or WS2812 (not WS2811)
+</para></refsect2>
+<refsect2 id="ws28-send-color" role="function">
+<title>ws28_send_color ()</title>
+<indexterm zone="ws28-send-color"><primary>ws28_send_color</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                ws28_send_color                     (<parameter>const <link linkend="color-t"><type>color_t</type></link> *src</parameter>);</programlisting>
+<para>
+Send Red, Green, and Blue values to the WS28xx, in that order, not pausing for a reset.
+</para>
+<para>
+See also: <link linkend="ws28-send"><function>ws28_send()</function></link>, SPI.transfer()
+</para><variablelist role="params">
+<varlistentry><term><parameter>src</parameter>&#160;:</term>
+<listitem><simpara>Color to send. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="ws28-send" role="function">
+<title>ws28_send ()</title>
+<indexterm zone="ws28-send"><primary>ws28_send</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                ws28_send                           (<parameter><link linkend="fb-t"><type>fb_t</type></link> *fb</parameter>);</programlisting>
+<para>
+Send an entire <link linkend="fb-t"><type>fb_t</type></link> to the WS28xx, pausing before send if necessary
+to reset the WS28xx's to the first pixel.
+</para>
+<para>
+The pixels are sent in <emphasis>column-major</emphasis> order; i.e., all the pixels with x==0 are sent, then all with x==1, etc.
+</para><variablelist role="params">
+<varlistentry><term><parameter>fb</parameter>&#160;:</term>
+<listitem><simpara>Framebuffer to send. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

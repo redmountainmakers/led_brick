@@ -1,0 +1,548 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>fb</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="libgfx Reference Manual">
+<link rel="up" href="ch01.html" title="libgfx">
+<link rel="prev" href="ch01.html" title="libgfx">
+<link rel="next" href="libgfx-font.html" title="font">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ch01.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libgfx Reference Manual</th>
+<td><a accesskey="n" href="libgfx-font.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libgfx-fb.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libgfx-fb.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="libgfx-fb"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libgfx-fb.top_of_page"></a>fb</span></h2>
+<p>fb — Basic framebuffer/color support</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="libgfx-fb.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">typedef             <a class="link" href="libgfx-fb.html#color-t" title="color_t">color_t</a>;
+#define             <a class="link" href="libgfx-fb.html#FB-EPP:CAPS" title="FB_EPP">FB_EPP</a>
+                    <a class="link" href="libgfx-fb.html#fb-t" title="fb_t">fb_t</a>;
+#define             <a class="link" href="libgfx-fb.html#COLOR:CAPS" title="COLOR()">COLOR</a>                               (r,
+                                                         g,
+                                                         b)
+#define             <a class="link" href="libgfx-fb.html#FB-DEF:CAPS" title="FB_DEF()">FB_DEF</a>                              (name,
+                                                         w,
+                                                         h)
+<span class="returnvalue">void</span>                <a class="link" href="libgfx-fb.html#fb-init" title="fb_init ()">fb_init</a>                             (<em class="parameter"><code><a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb_out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> *buf</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> w</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> h</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> pitch</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libgfx-fb.html#fb-sub" title="fb_sub ()">fb_sub</a>                              (<em class="parameter"><code><a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb_out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb_in</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x0</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y0</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> w</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> h</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libgfx-fb.html#fb-offset" title="fb_offset ()">fb_offset</a>                           (<em class="parameter"><code>const <a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libgfx-fb.html#fb-color-set" title="fb_color_set ()">fb_color_set</a>                        (<em class="parameter"><code><a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> *dst</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> *src</code></em>);
+<a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="returnvalue">color_t</span></a> *           <a class="link" href="libgfx-fb.html#fb-pixel" title="fb_pixel ()">fb_pixel</a>                            (<em class="parameter"><code><a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libgfx-fb.html#fb-pixel-set" title="fb_pixel_set ()">fb_pixel_set</a>                        (<em class="parameter"><code><a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> *src</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libgfx-fb.html#fb-fill" title="fb_fill ()">fb_fill</a>                             (<em class="parameter"><code><a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb_out</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> *color</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libgfx-fb.html#fb-color-hsv" title="fb_color_hsv ()">fb_color_hsv</a>                        (<em class="parameter"><code><a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> *dst</code></em>,
+                                                         <em class="parameter"><code>unsigned <span class="type">int</span> h</code></em>,
+                                                         <em class="parameter"><code>unsigned <span class="type">int</span> s</code></em>,
+                                                         <em class="parameter"><code>unsigned <span class="type">int</span> v</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="libgfx-fb.description"></a><h2>Description</h2>
+<p>
+Contains low-level functions for framebuffer and color/pixel support.
+</p>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>None of these functions do bounds checking - that is the
+responsibility of higher level code.</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="libgfx-fb.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="color-t"></a><h3>color_t</h3>
+<pre class="programlisting">typedef uint16_t color_t;
+</pre>
+<p>
+Type representing a color or single pixel.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="FB-EPP:CAPS"></a><h3>FB_EPP</h3>
+<pre class="programlisting">#define FB_EPP		1
+</pre>
+<p>
+Number of elements per pixel in <a class="link" href="libgfx-fb.html#fb-t.buf"><span class="type">fb_t.buf</span></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fb-t"></a><h3>fb_t</h3>
+<pre class="programlisting">typedef struct {
+	int width, height;
+	int pitch;
+	color_t *buf;
+} fb_t;
+</pre>
+<p>
+A basic framebuffer object with <em class="parameter"><code>width</code></em> columns and <em class="parameter"><code>height</code></em> rows of pixels.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="fb-t.width"></a>width</code></em>;</span></p></td>
+<td>Width of the framebuffer.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="fb-t.height"></a>height</code></em>;</span></p></td>
+<td>Height of the framebuffer.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="fb-t.pitch"></a>pitch</code></em>;</span></p></td>
+<td>Pitch of the framebuffer (<span class="emphasis"><em>elements</em></span> to next row).</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> *<em class="structfield"><code><a name="fb-t.buf"></a>buf</code></em>;</span></p></td>
+<td>Framebuffer pixels; Must have at least <code class="code"><a class="link" href="libgfx-fb.html#fb-t.height"><span class="type">fb_t.height</span></a> * <a class="link" href="libgfx-fb.html#fb-t.pitch"><span class="type">fb_t.pitch</span></a></code> elements. <span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="COLOR:CAPS"></a><h3>COLOR()</h3>
+<pre class="programlisting">#define             COLOR(r,g,b)</pre>
+<p>
+Converts R,G,B values in to a <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a>
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>r</code></em> :</span></p></td>
+<td>Red value (0 to 255). <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>][<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> uint8_t]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>g</code></em> :</span></p></td>
+<td>Red value (0 to 255). <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>][<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> uint8_t]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>Red value (0 to 255). <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>][<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> uint8_t]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="code">const</code> pointer to the <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="FB-DEF:CAPS"></a><h3>FB_DEF()</h3>
+<pre class="programlisting">#define             FB_DEF(name,w,h)</pre>
+<p>
+Staticly allocate and initialize a <a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> and its buffer.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>Name of the <a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> variable to declare and define. <span class="annotation">[<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> fb_t]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>w</code></em> :</span></p></td>
+<td>Width of the framebuffer to allocate. <span class="annotation">[<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> int][<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>h</code></em> :</span></p></td>
+<td>Height of the framebuffer to allocate. <span class="annotation">[<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> int][<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fb-init"></a><h3>fb_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fb_init                             (<em class="parameter"><code><a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb_out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> *buf</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> w</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> h</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> pitch</code></em>);</pre>
+<p>
+Initialize a <a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> with pre-allocated buffer.
+</p>
+<p>
+See also: <a class="link" href="libgfx-fb.html#FB-DEF:CAPS" title="FB_DEF()"><code class="function">FB_DEF()</code></a>, <a class="link" href="libgfx-fb.html#fb-sub" title="fb_sub ()"><code class="function">fb_sub()</code></a>, <a class="link" href="libgfx-fb.html#fb-pixel-set" title="fb_pixel_set ()"><code class="function">fb_pixel_set()</code></a>, <a class="link" href="libgfx-fb.html#fb-pixel" title="fb_pixel ()"><code class="function">fb_pixel()</code></a>
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fb_out</code></em> :</span></p></td>
+<td>The framebuffer to initialize. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buf</code></em> :</span></p></td>
+<td>The allocated memory.  Must be at least <code class="code"><em class="parameter"><code>h</code></em> * <em class="parameter"><code>pitch</code></em></code> elements. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>w</code></em> :</span></p></td>
+<td>Width of the framebuffer. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>h</code></em> :</span></p></td>
+<td>Height of the framebuffer. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pitch</code></em> :</span></p></td>
+<td>Number of <span class="emphasis"><em>elements</em></span> to get from one row to the next. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fb-sub"></a><h3>fb_sub ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fb_sub                              (<em class="parameter"><code><a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb_out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb_in</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x0</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y0</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> w</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> h</code></em>);</pre>
+<p>
+Initialize a <a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> as rectangular subset of an existing <a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a>.
+</p>
+<p>
+</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>The data is not copied; changes to <em class="parameter"><code>fb_in</code></em> will appear in <em class="parameter"><code>fb_out</code></em> and vice versa.</div>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fb_out</code></em> :</span></p></td>
+<td>The framebuffer to initialize. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fb_in</code></em> :</span></p></td>
+<td>The already-initialized framebuffer. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x0</code></em> :</span></p></td>
+<td>Left location of the rectangle. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y0</code></em> :</span></p></td>
+<td>Top location of the rectangle. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>w</code></em> :</span></p></td>
+<td>Width of the rectangle. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>h</code></em> :</span></p></td>
+<td>Height of the rectangle. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fb-offset"></a><h3>fb_offset ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 fb_offset                           (<em class="parameter"><code>const <a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);</pre>
+<p>
+Calculates the element index of a location in a <a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fb</code></em> :</span></p></td>
+<td>The <a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a>. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td>X location in <em class="parameter"><code>fb</code></em>. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td>Y location in <em class="parameter"><code>fb</code></em>. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The index, such that <code class="code"><em class="parameter"><code>fb-&gt;buf</code></em>[index]</code> is the pixel at <em class="parameter"><code>x</code></em>,<em class="parameter"><code>y</code></em>
+See also: <a class="link" href="libgfx-fb.html#fb-pixel" title="fb_pixel ()"><code class="function">fb_pixel()</code></a>, <a class="link" href="libgfx-fb.html#fb-color-set" title="fb_color_set ()"><code class="function">fb_color_set()</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fb-color-set"></a><h3>fb_color_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fb_color_set                        (<em class="parameter"><code><a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> *dst</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> *src</code></em>);</pre>
+<p>
+Set <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> <em class="parameter"><code>dst</code></em> to the color in <em class="parameter"><code>src</code></em>.
+</p>
+<p>
+See also: <a class="link" href="libgfx-fb.html#fb-pixel-set" title="fb_pixel_set ()"><code class="function">fb_pixel_set()</code></a>, <a class="link" href="libgfx-fb.html#fb-pixel" title="fb_pixel ()"><code class="function">fb_pixel()</code></a>
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dst</code></em> :</span></p></td>
+<td>Destination <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a>. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>src</code></em> :</span></p></td>
+<td>Source <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a>. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fb-pixel"></a><h3>fb_pixel ()</h3>
+<pre class="programlisting"><a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="returnvalue">color_t</span></a> *           fb_pixel                            (<em class="parameter"><code><a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);</pre>
+<p>
+Calcluate pointer to a pixel in a <a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fb</code></em> :</span></p></td>
+<td>Framebuffer containing the pixel. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td>X location in <em class="parameter"><code>fb</code></em>. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td>Y location in <em class="parameter"><code>fb</code></em>. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A pointer to the requested pixel in <em class="parameter"><code>fb</code></em>.
+See also: <a class="link" href="libgfx-fb.html#fb-color-set" title="fb_color_set ()"><code class="function">fb_color_set()</code></a>, <a class="link" href="libgfx-fb.html#fb-pixel-set" title="fb_pixel_set ()"><code class="function">fb_pixel_set()</code></a>, <a class="link" href="libgfx-fb.html#fb-offset" title="fb_offset ()"><code class="function">fb_offset()</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fb-pixel-set"></a><h3>fb_pixel_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fb_pixel_set                        (<em class="parameter"><code><a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> *src</code></em>);</pre>
+<p>
+Set a pixel in a <a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> to a <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a>.
+</p>
+<p>
+See also: <a class="link" href="libgfx-fb.html#COLOR:CAPS" title="COLOR()"><code class="function">COLOR()</code></a>, <a class="link" href="libgfx-fb.html#fb-color-hsv" title="fb_color_hsv ()"><code class="function">fb_color_hsv()</code></a>, <a class="link" href="libgfx-fb.html#fb-pixel" title="fb_pixel ()"><code class="function">fb_pixel()</code></a>
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fb</code></em> :</span></p></td>
+<td>Framebuffer to set the pixel in. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td>X location in <em class="parameter"><code>fb</code></em>. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td>Y location in <em class="parameter"><code>fb</code></em>. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>src</code></em> :</span></p></td>
+<td>
+<a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> to set the pixel at <em class="parameter"><code>x</code></em>,<em class="parameter"><code>y</code></em> in <em class="parameter"><code>fb</code></em> to. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fb-fill"></a><h3>fb_fill ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fb_fill                             (<em class="parameter"><code><a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb_out</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> *color</code></em>);</pre>
+<p>
+Fill an entire <a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> with one color.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fb_out</code></em> :</span></p></td>
+<td>The <a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> to fill. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
+<td>The <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> to fill <em class="parameter"><code>fb_out</code></em> with. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fb-color-hsv"></a><h3>fb_color_hsv ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fb_color_hsv                        (<em class="parameter"><code><a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> *dst</code></em>,
+                                                         <em class="parameter"><code>unsigned <span class="type">int</span> h</code></em>,
+                                                         <em class="parameter"><code>unsigned <span class="type">int</span> s</code></em>,
+                                                         <em class="parameter"><code>unsigned <span class="type">int</span> v</code></em>);</pre>
+<p>
+Create a <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> based on Hue, Saturation, and Value.
+</p>
+<p>
+See also: <a class="link" href="libgfx-fb.html#COLOR:CAPS" title="COLOR()"><code class="function">COLOR()</code></a>, <a class="link" href="libgfx-fb.html#fb-pixel-set" title="fb_pixel_set ()"><code class="function">fb_pixel_set()</code></a>, <a class="link" href="libgfx-fb.html#fb-color-set" title="fb_color_set ()"><code class="function">fb_color_set()</code></a>
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dst</code></em> :</span></p></td>
+<td>
+<a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> to store the result in. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>h</code></em> :</span></p></td>
+<td>Hue of <em class="parameter"><code>dst</code></em> in degrees (0 to 359). <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>Saturation of <em class="parameter"><code>dst</code></em> (0 to 255). <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>v</code></em> :</span></p></td>
+<td>Value of <em class="parameter"><code>dst</code></em> (0 to 255). <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

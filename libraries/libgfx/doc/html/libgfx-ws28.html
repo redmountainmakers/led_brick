@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ws28</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="libgfx Reference Manual">
+<link rel="up" href="ch01.html" title="libgfx">
+<link rel="prev" href="libgfx-font.html" title="font">
+<link rel="next" href="api-index-full.html" title="API Index">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libgfx-font.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libgfx Reference Manual</th>
+<td><a accesskey="n" href="api-index-full.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libgfx-ws28.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libgfx-ws28.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="libgfx-ws28"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libgfx-ws28.top_of_page"></a>ws28</span></h2>
+<p>ws28 — Communicate with WS2803/WS2812</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="libgfx-ws28.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis"><span class="returnvalue">void</span>                <a class="link" href="libgfx-ws28.html#ws28-init" title="ws28_init ()">ws28_init</a>                           (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libgfx-ws28.html#ws28-send-color" title="ws28_send_color ()">ws28_send_color</a>                     (<em class="parameter"><code>const <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> *src</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libgfx-ws28.html#ws28-send" title="ws28_send ()">ws28_send</a>                           (<em class="parameter"><code><a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="libgfx-ws28.description"></a><h2>Description</h2>
+<p>
+Arduino-compatible functions for sending <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> and <a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> to a
+WS2803 or WS2812 LED controller chip.
+</p>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>WS2811 chips (and perhaps others) use a different signaling protocol.
+This library will not work with those.</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="libgfx-ws28.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="ws28-init"></a><h3>ws28_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                ws28_init                           (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Initialize the SPI interface for use with a WS2803 or WS2812 (not WS2811)
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ws28-send-color"></a><h3>ws28_send_color ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                ws28_send_color                     (<em class="parameter"><code>const <a class="link" href="libgfx-fb.html#color-t" title="color_t"><span class="type">color_t</span></a> *src</code></em>);</pre>
+<p>
+Send Red, Green, and Blue values to the WS28xx, in that order, not pausing for a reset.
+</p>
+<p>
+See also: <a class="link" href="libgfx-ws28.html#ws28-send" title="ws28_send ()"><code class="function">ws28_send()</code></a>, SPI.transfer()
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>src</code></em> :</span></p></td>
+<td>Color to send. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ws28-send"></a><h3>ws28_send ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                ws28_send                           (<em class="parameter"><code><a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> *fb</code></em>);</pre>
+<p>
+Send an entire <a class="link" href="libgfx-fb.html#fb-t" title="fb_t"><span class="type">fb_t</span></a> to the WS28xx, pausing before send if necessary
+to reset the WS28xx's to the first pixel.
+</p>
+<p>
+The pixels are sent in <span class="emphasis"><em>column-major</em></span> order; i.e., all the pixels with x==0 are sent, then all with x==1, etc.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>fb</code></em> :</span></p></td>
+<td>Framebuffer to send. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

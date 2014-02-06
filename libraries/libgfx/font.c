@@ -5,6 +5,24 @@
 #include "font.h"
 #include "font_data.h"
 
+/* Draw a character using the offset+bitmap encoded font data.
+ * The font is encoded as a set of offsets (font.pos) to the first
+ * column of each letter in a bitmap.  The bitmap is stored by column,
+ * and characters are packed in order with no blank columns between them.
+ *
+ * font.pos[256] is where the start of a hypothetical character
+ * following '\xff' would be, but there is no data there.
+ *
+ * ( font.data[font.pos[ch + col]] << row ) is the bit associated with
+ * each row/column, with 1 being set and 0 being not set.  font.data may
+ * be any unsigned integer type up to uint32_t to account for the
+ * number of rows present in the font (32 maximum).
+ *
+ * Some skipping of initial columns and/or rows is performed when the
+ * starting location is out of bounds, and the function returns early
+ * if the top location is out of bounds, or the left location is out
+ * of bounds.  The early return does not affect the return value.
+ */
 int font_draw_ch(fb_t *fb, int sx, int sy, const color_t *color, int ch)
 {
 	int c0, c1, len, skip_y;

@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="libgfx-font">
+<refmeta>
+<refentrytitle role="top_of_page" id="libgfx-font.top_of_page">font</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBGFX Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>font</refname>
+<refpurpose>Basic font drawing support.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libgfx-font.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis><link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="font-draw-ch">font_draw_ch</link>                        (<parameter><link linkend="fb-t"><type>fb_t</type></link> *fb</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> sx</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> sy</parameter>,
+                                                         <parameter>const <link linkend="color-t"><type>color_t</type></link> *color</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> ch</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="font-draw">font_draw</link>                           (<parameter><link linkend="fb-t"><type>fb_t</type></link> *fb</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> sx</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> sy</parameter>,
+                                                         <parameter>const <link linkend="color-t"><type>color_t</type></link> *color</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="libgfx-font.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+Contains functions for drawing characters and strings to a <link linkend="fb-t"><type>fb_t</type></link>.
+</para>
+<para>
+<note>These function draw <emphasis>inside</emphasis> the framebuffer only.
+They will skip drawing locations outside the framebuffer,
+so you can use them to scroll text off-screen.</note>
+</para>
+<para>
+<note>The background is not drawn by these functions.</note>
+</para>
+</refsect1>
+<refsect1 id="libgfx-font.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="font-draw-ch" role="function">
+<title>font_draw_ch ()</title>
+<indexterm zone="font-draw-ch"><primary>font_draw_ch</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 font_draw_ch                        (<parameter><link linkend="fb-t"><type>fb_t</type></link> *fb</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> sx</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> sy</parameter>,
+                                                         <parameter>const <link linkend="color-t"><type>color_t</type></link> *color</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> ch</parameter>);</programlisting>
+<para>
+Draw a single character in a framebuffer.
+</para><variablelist role="params">
+<varlistentry><term><parameter>fb</parameter>&#160;:</term>
+<listitem><simpara>The framebuffer to draw in. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>sx</parameter>&#160;:</term>
+<listitem><simpara>Left starting location of the character. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>sy</parameter>&#160;:</term>
+<listitem><simpara>Top starting location of the character. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara>Color to draw with. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ch</parameter>&#160;:</term>
+<listitem><simpara>Character to draw in <parameter>fb</parameter> at <parameter>sx</parameter>,<parameter>sy</parameter> with color <parameter>color</parameter>. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>Number of columns the character takes, including a spacer column.
+See also: <link linkend="font-draw"><function>font_draw()</function></link></simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="font-draw" role="function">
+<title>font_draw ()</title>
+<indexterm zone="font-draw"><primary>font_draw</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 font_draw                           (<parameter><link linkend="fb-t"><type>fb_t</type></link> *fb</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> sx</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> sy</parameter>,
+                                                         <parameter>const <link linkend="color-t"><type>color_t</type></link> *color</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>);</programlisting>
+<para>
+Draw a string in a framebuffer.
+</para><variablelist role="params">
+<varlistentry><term><parameter>fb</parameter>&#160;:</term>
+<listitem><simpara>The framebuffer. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>sx</parameter>&#160;:</term>
+<listitem><simpara>Left starting location of the character. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>sy</parameter>&#160;:</term>
+<listitem><simpara>Top starting location of the character. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara>Color to draw with. <emphasis role="annotation">[<acronym>in</acronym>]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara>String to draw in <parameter>fb</parameter> at <parameter>sx</parameter>,<parameter>sy</parameter> with color <parameter>color</parameter>. <emphasis role="annotation">[<acronym>in</acronym>][<acronym>array</acronym> null-terminated=1]</emphasis></simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>Number of columns the string takes, including a spacer column.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>
