@@ -1,0 +1,6 @@
+.deps
+*.a
+*.o
+*~
+font/convert
+build-atmega328/
