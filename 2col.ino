@@ -16,35 +16,73 @@ void setup()
 	ws28_init();
 }
 
-void loop()
-{
-	static int offset = 0;
-	static int hue = 0;
-	static color_t c;
+static unsigned int counter = 0;
+static unsigned int tot_counter = 0;
+static unsigned long this_micros;
+static int mode = 0;
+static color_t c;
 
-#if 0
+void nextMode() {
+	mode = (mode + 1) % 2;
+	counter = 0;
+}
+
+void frameDelay(unsigned usec) {
+	unsigned long delay = this_micros + usec - micros() - 10 /*bad estimate of overhead*/;
+	if (delay > 0)
+		delayMicroseconds(delay);
+}
+
+void doTextDemo() {
+	int offset = fb.width - counter/15;
+
 	fb_fill(&fb, COLOR(0,0,0));
-	font_draw(&fb, offset, 0, &c, "Hello, world");
-	font_draw(&fb, offset + 38, 0, &c, "Hello, world");
-	if (--offset < -38)
-		offset = 0;
-#else
-#if 0
-	fb_fill(&fb, &c);
-#else
-	fb_fill(&fb, COLOR(0,0,0));
+
+	offset += font_draw(&fb, offset, 0, COLOR(255,0,0), "Red");
+
+	const unsigned char mountain[] = "Mountain";
+	for (unsigned char i = 0; mountain[i]; ++i) {
+		fb_color_hsv(&c, 40, 255 - 255*i/(sizeof(mountain)-1), 255);
+		offset += font_draw_ch(&fb, offset, 0, &c, mountain[i]);
+	}
+
+	const unsigned char makers[] = "Makers";
+	for (unsigned char i = 0; makers[i]; ++i) {
+		fb_color_hsv(&c, (tot_counter - 10*i + 360) % 360, 255, 255);
+		offset += font_draw_ch(&fb, offset, 0, &c, makers[i]);
+	}
+
+	if (offset <= 0)
+		nextMode();
+
+	ws28_send(&fb);
+	frameDelay(5000);
+}
+
+void doColorDemo() {
 	for (int j = 0; j < COLS; ++j) {
 		for (int i = 0; i < ROWS; ++i) {
-			fb_color_hsv(&c, (hue + 10*j) % 360, 255, 255);
+			fb_color_hsv(&c, (tot_counter + 10*j + 2*i) % 360, 255, 255);
 			fb_pixel_set(&fb, j, i, &c);
 		}
 	}
-#endif
-#endif
 
-	hue = (hue + 1) % 360;
+	if (counter >= 150000/75)
+		nextMode();
 
 	ws28_send(&fb);
+	frameDelay(7500);
+}
 
-	delay(5);
+void loop()
+{
+	this_micros = micros();
+
+	switch (mode) {
+	case 0: doTextDemo(); break;
+	case 1: doColorDemo(); break;
+	}
+
+	++counter;
+	++tot_counter;
 }
