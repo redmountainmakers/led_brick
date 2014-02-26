@@ -34,7 +34,7 @@ void frameDelay(unsigned usec) {
 }
 
 void doTextDemo() {
-	int offset = fb.width - counter/15;
+	int offset = fb.width - counter/15 - (fb.width - 4);
 
 	fb_fill(&fb, COLOR(0,0,0));
 
