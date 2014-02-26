@@ -33,7 +33,7 @@ extern "C" {
  *
  * See also: font_draw()
  */
-int font_draw_ch(fb_t *fb, int sx, int sy, const color_t *color, int ch);
+int font_draw_ch(fb_t *fb, int sx, int sy, const color_t *color, unsigned char ch);
 
 /**
  * font_draw:

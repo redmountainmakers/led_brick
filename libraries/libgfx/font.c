@@ -23,7 +23,7 @@
  * if the top location is out of bounds, or the left location is out
  * of bounds.  The early return does not affect the return value.
  */
-int font_draw_ch(fb_t *fb, int sx, int sy, const color_t *color, int ch)
+int font_draw_ch(fb_t *fb, int sx, int sy, const color_t *color, unsigned char ch)
 {
 	int c0, c1, len, skip_y;
 
