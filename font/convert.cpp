@@ -1,5 +1,5 @@
 /*
-	convert.c - convert a gimp_image .c font to a more compact format.
+	convert.c - convert a font to a more compact format.
 	Copyright (C) 2014  Red Mountain Makers
 	
 	This program is free software: you can redistribute it and/or modify
@@ -16,19 +16,21 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdio.h>
-#include <stdint.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstdint>
+#include <opencv2/opencv.hpp>
 
-#include "6by6.c"
+static IplImage *img;
 
-#define bpp (gimp_image.bytes_per_pixel)
-#define pitch (gimp_image.width * bpp)
-#define cell_w (gimp_image.width / 16)
-#define cell_h (gimp_image.height / 16)
+#define bpp (3)
+#define pitch (img->widthStep)
+#define cell_w (img->width / 16)
+#define cell_h (img->height / 16)
 #define char_w (cell_w - 1)
 #define char_h (cell_h - 1)
 #define col_bytes ((char_h + 7) / 8)
+#define idata (img->imageData)
 
 static inline uint8_t *put_bytes(uint8_t *p, uint32_t val, int bytes)
 {
@@ -90,7 +92,7 @@ static void print_bytes(const uint8_t *buf, int len, const char *prefix, int max
 	max_cols -= 2; /* dquotes */
 
 	for (i = 0; i < len; ++i) {
-		const char *fmt = NULL;
+		const char *fmt;
 		char octal[6];
 		int ch_len;
 
@@ -158,10 +160,24 @@ static void print_bytes(const uint8_t *buf, int len, const char *prefix, int max
 
 int main(int argc, char *argv[])
 {
-	uint8_t buf_chars[256*col_bytes*char_w], *p_chars = buf_chars;
+	uint8_t *buf_chars, *p_chars;
 	uint32_t lut[257];
 	int buf_len, idx_bytes;
 	int ch;
+
+	if (argc <= 1) {
+		fprintf(stderr, "%s <image>\n", argv[0]);
+		return -1;
+	}
+
+	img = cvLoadImage(argv[1]);
+	if (!img) {
+		fprintf(stderr, "Couldn't open %s\n", argv[1]);
+		return -1;
+	}
+
+	buf_chars = new uint8_t[256*col_bytes*char_w];
+	p_chars = buf_chars;
 
 	for (ch = 0; ch < 256; ++ch) {
 		int x, y, col_0 = char_w, col_l = 0;
@@ -174,7 +190,7 @@ int main(int argc, char *argv[])
 		/* special hack for SPACE: use width of 'x' */
 		offset = (ch == ' ') ? ((unsigned)'x' & 0xff) : ((unsigned)ch & 0xff);
 		offset = (offset / 16)*cell_h*pitch + (offset % 16)*cell_w*bpp;
-		src = &gimp_image.pixel_data[offset];
+		src = (unsigned char *)&idata[offset];
 
 		for (x = 0; x < char_w; ++x) {
 			cols[x] = 0;
@@ -250,5 +266,6 @@ int main(int argc, char *argv[])
 		"#endif /* FONT_DATA_h_" FONT_DATA_h_UUID " */\n"
 	);
 
+	/*delete buf_chars;*/
 	return 0;
 }
