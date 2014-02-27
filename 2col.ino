@@ -11,19 +11,22 @@ fb_t fb = {
 	.buf = fb_buf,
 };
 
-void setup()
-{
-	ws28_init();
-}
-
 static unsigned int counter = 0;
 static unsigned int tot_counter = 0;
 static unsigned long this_micros;
 static int mode = 0;
 static color_t c;
+static int rmm_len;
+static const char rmm[] = "RedMountainMakers";
+
+void setup()
+{
+	ws28_init();
+	rmm_len = font_size(rmm);
+}
 
 void nextMode() {
-	mode = (mode + 1) % 2;
+	mode = (mode + 1) % 3;
 	counter = 0;
 }
 
@@ -59,6 +62,24 @@ void doTextDemo() {
 	frameDelay(5000);
 }
 
+void doTextDemo2() {
+	int offset = counter/15 - rmm_len;
+
+	for (int j = 0; j < COLS; ++j) {
+		for (int i = 0; i < ROWS; ++i) {
+			fb_color_hsv(&c, (tot_counter + 10*j + 2*i) % 360, 255, 255);
+			fb_pixel_set(&fb, j, i, &c);
+		}
+	}
+
+	font_draw(&fb, offset, 0, COLOR(0,0,0), rmm);
+	if (offset > fb.width)
+		nextMode();
+
+	ws28_send(&fb);
+	frameDelay(5000);
+}
+
 void doColorDemo() {
 	for (int j = 0; j < COLS; ++j) {
 		for (int i = 0; i < ROWS; ++i) {
@@ -80,7 +101,8 @@ void loop()
 
 	switch (mode) {
 	case 0: doTextDemo(); break;
-	case 1: doColorDemo(); break;
+	case 1: doTextDemo2(); break;
+	case 2: doColorDemo(); break;
 	}
 
 	++counter;
