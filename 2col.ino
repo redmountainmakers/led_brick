@@ -28,7 +28,7 @@ void nextMode() {
 }
 
 void frameDelay(unsigned usec) {
-	unsigned long delay = this_micros + usec - micros() - 10 /*bad estimate of overhead*/;
+	long delay = (signed long)(this_micros + usec - micros() - 10) /*bad estimate of overhead*/;
 	if (delay > 0)
 		delayMicroseconds(delay);
 }
