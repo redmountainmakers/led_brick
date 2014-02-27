@@ -78,3 +78,16 @@ int font_draw(fb_t *fb, int sx, int sy, const color_t *color, const char *str)
 		len += font_draw_ch(fb, sx + len, sy, color, *str & 0xff);
 	return len;
 }
+
+int font_size_ch(unsigned char ch)
+{
+	return font.pos[ch+1] - font.pos[ch];
+}
+
+int font_size(const char *str)
+{
+	int len = 0;
+	for (; *str; ++str)
+		len += font_size_ch(*str & 0xff) + 1;
+	return len;
+}
