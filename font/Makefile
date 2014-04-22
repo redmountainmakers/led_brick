@@ -9,14 +9,18 @@ CPPFLAGS := -std=c++11
 LDFLAGS := -lopencv_core -lopencv_highgui
 
 CONVERT_OBJS := convert.o
+CONVERT2BDF_OBJS := convert2bdf.o
 
-OBJS := $(CONVERT_OBJS)
+OBJS := $(CONVERT_OBJS) $(CONVERT2BDF_OBJS)
 
-all: convert
+all: convert convert2bdf
 convert: $(CONVERT_OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
+convert2bdf: $(CONVERT2BDF_OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
+
 clean:
-	rm -f convert $(OBJS)
+	rm -f convert convert2bdf $(OBJS)
 	rm -rf .deps
 
 %.o: %.cpp Makefile
