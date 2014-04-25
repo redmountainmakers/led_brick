@@ -3,7 +3,8 @@ from time import time, sleep
 from PIL import Image, ImageFont, ImageDraw, ImageChops
 #from LedMatrix_ws2803 import LedMatrix
 #from LedMatrix_n5110 import LedMatrix
-from LedMatrix_ascii import LedMatrix
+#from LedMatrix_ascii import LedMatrix
+from LedMatrix_pygame import LedMatrix
 
 SIZE = (29, 6)
 
