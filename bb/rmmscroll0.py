@@ -66,7 +66,7 @@ try:
 	while True:
 		drawTime = time()
 		frameTime = drawTime - refTime
-		frameNo = int(frameTime / frameRate)
+		frameNo = int(frameTime * frameRate + 0.5)
 		if frameNo - lastFrameNo > 1:
 			print "Skipped %d frames" % (frameNo - lastFrameNo)
 		lastFrameNo = frameNo
