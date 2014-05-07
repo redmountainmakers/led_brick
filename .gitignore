@@ -1,6 +1,6 @@
 .deps
 *.a
 *.o
+*.pyc
 *~
-font/convert
 build-atmega328/
