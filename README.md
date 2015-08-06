@@ -2,7 +2,7 @@
 
 Programs to control the RGB LED matrix display at the top of the Red Mountain Makers space:
 
-![display](https://cloud.githubusercontent.com/assets/227022/9108882/de3a120c-3bf6-11e5-92d6-32fcf0478036.jpg)
+![display](https://cloud.githubusercontent.com/assets/227022/9108911/241ec826-3bf7-11e5-8af0-ae5129cdbdfd.jpg)
 
 More info:  http://redmountainmakers.github.io/led_brick/
 
