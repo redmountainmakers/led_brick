@@ -19,3 +19,7 @@ Slowly shifting rainbow hues (what you see in the picture above).
 Snake / Nibbler game:
 
 ![snakedemo](https://cloud.githubusercontent.com/assets/13653153/9103375/499e32a0-3bc3-11e5-9c74-1bf6604ef0d4.gif)
+
+#### `dissolve.py`
+
+Changing hues with a pixel dissolve effect in between.
