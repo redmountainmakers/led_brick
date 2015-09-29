@@ -25,6 +25,7 @@ y_steps = SIZE[1]
 sin_table = [[(0, 0, 0) for y in range(y_steps)] for x in range(x_steps)]
 
 colors = [
+	(0, 0, 0),
 	(0, 255, 0),
 	(255, 255, 0),
 	(255, 0, 0),
@@ -42,15 +43,18 @@ def blend(c1, c2, weight1):
 	)
 
 # precalculate all colors along one full sine wave cycle
-whatever = 0.5 # seems to work better than epsilon or 1
+range_offset = -0.5
+curve_offset = 0.5
 for x in range(x_steps):
-	y = (1 + math.sin(2 * math.pi * x / x_steps)) * (y_steps - whatever) / 2
+	y = (1 + math.sin(2 * math.pi * x / x_steps)) * (y_steps + range_offset) / 2
+	y += curve_offset
 	y_int = int(y)
 	y_frac = y - int(y)
 	c = 0
 	print 'x=%d y=%f' % (x, y)
 	while y_int >= 0:
-		sin_table[x][y_int] = blend(colors[c], colors[c + 1], 1 - y_frac)
+		if y_int < SIZE[1]:
+			sin_table[x][y_int] = blend(colors[c], colors[c + 1], 1 - y_frac)
 		c += 1
 		y_int -= 1
 
