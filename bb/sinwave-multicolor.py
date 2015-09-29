@@ -34,15 +34,25 @@ colors = [
 	(255, 0, 0)
 ]
 
+def blend(c1, c2, weight1):
+	return (
+		int(float(c1[0]) * weight1 + float(c2[0]) * (1 - weight1)),
+		int(float(c1[1]) * weight1 + float(c2[1]) * (1 - weight1)),
+		int(float(c1[2]) * weight1 + float(c2[2]) * (1 - weight1))
+	)
+
 # precalculate all colors along one full sine wave cycle
+whatever = 0.5 # seems to work better than epsilon or 1
 for x in range(x_steps):
-	y = int(round((1 + math.sin(2 * math.pi * x / x_steps)) * (y_steps - 1) / 2))
+	y = (1 + math.sin(2 * math.pi * x / x_steps)) * (y_steps - whatever) / 2
+	y_int = int(y)
+	y_frac = y - int(y)
 	c = 0
-	print 'x=%d y=%d' % (x, y)
-	while y >= 0:
-		sin_table[x][y] = colors[c]
+	print 'x=%d y=%f' % (x, y)
+	while y_int >= 0:
+		sin_table[x][y_int] = blend(colors[c], colors[c + 1], 1 - y_frac)
 		c += 1
-		y -= 1
+		y_int -= 1
 
 print "Drawing sine waves"
 
